@@ -26,9 +26,7 @@ io.on("connection", (socket) => {
       console.log("❌ Client disconnected:", socket.id);
     });
   });
-  
-const HOST: string = '10.15.120.102';
 
-server.listen(Number(process.env.PORT), HOST, () => {
-    console.log(`⚡️[server]: Server is running at http://${HOST}:${process.env.PORT}`);
+server.listen(Number(process.env.PORT), () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:${process.env.PORT}`);
   });
