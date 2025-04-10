@@ -1,7 +1,7 @@
 export interface CreatePaymentPayload {
   requestId: string;
   orderId: string;
-  amount: number;
+  amount: string;
   orderInfo: string;
   returnUrl: string;
   notifyUrl: string;
@@ -11,6 +11,6 @@ export interface CreatePaymentPayload {
 export interface RefundPayload {
   requestId: string;
   orderId: string;
-  amount: number;
+  amount: string;
   transId: string;
 }

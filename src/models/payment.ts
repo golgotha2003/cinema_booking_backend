@@ -28,6 +28,7 @@ const PaymentSchema = new Schema<IPayment>({
         type: String,
         required: true,
     },
+    payment_url: { type: String, required: false },
 }, {
     timestamps: true,
 });

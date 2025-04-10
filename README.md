@@ -87,3 +87,11 @@ SECRET_KEY=your_secret_key
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+#MOMO
+MOMO_PARTNER_CODE=MOMO
+MOMO_ACCESS_KEY=F8BBA842ECF85
+MOMO_SECRET_KEY=K951B6PE1waDMi640xX08PD3vg6EkVlz
+MOMO_RETURN_URL=https://momo.vn/return
+MOMO_NOTIFY_URL=https://callback.url/notify
+MOMO_ENVIRONMENT=sandbox

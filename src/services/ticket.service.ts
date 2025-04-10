@@ -34,7 +34,7 @@ class TicketService {
             user_id: userId,
             showtime_id: showtimeId,
             seat_id: seatId,
-            price: ticketPrice(showtimeId, seatId),
+            price: await ticketPrice(showtimeId, seatId),
             status: TicketStatus.UNPAID
         });
         

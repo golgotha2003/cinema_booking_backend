@@ -8,4 +8,5 @@ export interface IPayment extends Document {
     method: PaymentMethod;
     status: PaymentStatus;
     transaction_id: string;
+    payment_url?: string;
 }
