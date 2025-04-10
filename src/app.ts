@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { connectDB } from "./db/dbConnect";
 import initRoutes from "./routes/init.route";
@@ -34,9 +34,11 @@ connectDB();
 //Routes
 app.use("/api", initRoutes);
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: err.message });
-});
+};
+
+app.use(errorHandler);
 
 export default app;

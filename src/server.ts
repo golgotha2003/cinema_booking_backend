@@ -2,6 +2,7 @@ import http from "http";
 import { Server } from "socket.io";
 import app from "./app";
 import dotenv from "dotenv";
+import { startCronJob } from "./utils/cronjob/cron";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ io.on("connection", (socket) => {
     });
   });
 
-server.listen(Number(process.env.PORT), () => {
+server.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${process.env.PORT}`);
+    startCronJob();
   });

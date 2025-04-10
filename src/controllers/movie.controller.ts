@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import movieService from "../services/movie.service";
 import { MovieRequestDto } from "../dto/req/movie.req.dto";
-import { IRequestWithFiles } from "../interfaces/iRequestWithFile";
 
 class MovieController {
   getAllMovies = async (req: Request, res: Response) => {
@@ -79,10 +78,15 @@ class MovieController {
     }
   };
 
-  addMovie = async (req: IRequestWithFiles, res: Response) => {
+  addMovie = async (req: Request, res: Response) => {
     try {
-      const posterUrl = req.files["poster"] ? req.files["poster"][0].path : '';
-      const trailerUrl = req.files["trailer"] ? req.files["trailer"][0].path : '';
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      const posterFiles = files["poster"];
+      const trailerFiles = files["trailer"];
+
+      const posterUrl = posterFiles?.[0]?.path || "";
+      const trailerUrl = trailerFiles?.[0]?.path || "";
 
       const movie: MovieRequestDto = {
         title: req.body.title,
@@ -112,11 +116,15 @@ class MovieController {
     }
   };
 
-  updateMovie = async (req: IRequestWithFiles, res: Response) => {
+  updateMovie = async (req: Request, res: Response) => {
     try {
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
-        const posterUrl = req.files["poster"] ? req.files["poster"][0].path : '';
-      const trailerUrl = req.files["trailer"] ? req.files["trailer"][0].path : '';
+      const posterFiles = files["poster"];
+      const trailerFiles = files["trailer"];
+
+      const posterUrl = posterFiles?.[0]?.path || "";
+      const trailerUrl = trailerFiles?.[0]?.path || "";
 
       const id = req.params.id;
       const movie: MovieRequestDto = {
@@ -131,7 +139,7 @@ class MovieController {
         poster: posterUrl,
         trailer: trailerUrl,
       };
-      
+
       const updatedMovie = await movieService.updateMovie(id, movie);
 
       return res.status(200).json({
@@ -156,7 +164,7 @@ class MovieController {
       return res.status(204).json({
         success: true,
         message: "Delete movie successfully",
-      })
+      });
     } catch (err) {
       return res.status(400).json({
         success: false,

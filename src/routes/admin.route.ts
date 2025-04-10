@@ -7,7 +7,6 @@ import showtimeController from "../controllers/showtime.controller";
 import ticketController from "../controllers/ticket.controller";
 import promotionController from "../controllers/promotion.controller";
 import { uploadMovie } from "../middlewares/multer";
-import { IRequestWithFiles } from "../interfaces/iRequestWithFile";
 import movieMiddleware from "../middlewares/movie.middleware";
 
 const router = Router();
@@ -34,7 +33,7 @@ router.post(
     { name: 'trailer', maxCount: 1 }
   ]),
   async (req: Request, res: Response, next: NextFunction) => {
-    await movieController.addMovie(req as IRequestWithFiles, res).catch(next);
+    await movieController.addMovie(req, res).catch(next);
   }
 );
 
@@ -45,7 +44,7 @@ router.put(
   ]), 
   movieMiddleware.updateMovie,
   async (req: Request, res: Response, next: NextFunction) => {
-    await movieController.updateMovie(req as IRequestWithFiles, res).catch(next);
+    await movieController.updateMovie(req, res).catch(next);
   }
 );
 
