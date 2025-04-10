@@ -1,5 +1,7 @@
 import { ITheater } from "../interfaces/iTheater";
 import Theater from "../models/theater";
+import { TheaterStatus } from "../utils/theater/status.enum";
+import seatService from "./seat.service";
 
 
 /**
@@ -68,6 +70,22 @@ class TheaterService {
         if(!theater) throw new Error("Theater not found.");
 
         await theater.deleteOne();
+    }
+
+    /**
+     * Disable a theater
+     * @param id - Id of the theater
+     */
+    disableTheater = async (id: string) => {
+        const theater = await Theater.findById(id);
+
+        if(!theater) throw new Error("Theater not found.");
+
+        theater.status = TheaterStatus.DISABLED;
+
+        await seatService.disableSeatsByTheaterId(id);
+
+        await theater.save();
     }
 }
 

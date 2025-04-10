@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { ITheater } from "../interfaces/iTheater";
+import { TheaterStatus } from "../utils/theater/status.enum";
 
 const TheaterSchema = new Schema<ITheater>(
   {
@@ -15,6 +16,11 @@ const TheaterSchema = new Schema<ITheater>(
       type: Number,
       required: true,
     },
+    status: {
+      type: String,
+      enum: Object.values(TheaterStatus),
+      default: TheaterStatus.ACTIVE
+    }
   },
   {
     timestamps: true,

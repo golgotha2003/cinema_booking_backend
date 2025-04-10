@@ -82,17 +82,34 @@ class TheaterController {
     deleteTheater = async (req: Request, res: Response) => {
         try{
             const id = req.params.id;
-            const deletedTheater = await theaterService.deleteTheater(id);
-            return res.status(200).json({
+            await theaterService.deleteTheater(id);
+            return res.status(204).json({
                 success: true,
                 message: "Delete theater successfully",
-                data: deletedTheater,
             });
         }
         catch(err){
             return res.status(400).json({
                 success: false,
                 message: "Delete theater failed",
+                error: err instanceof Error ? err.message : err,
+            });
+        }
+    }
+
+    disableTheater = async (req: Request, res: Response) => {
+        try{
+            const id = req.params.id;
+            await theaterService.disableTheater(id);
+            return res.status(204).json({
+                success: true,
+                message: "Disable theater successfully",
+            });
+        }
+        catch(err){
+            return res.status(400).json({
+                success: false,
+                message: "Disable theater failed",
                 error: err instanceof Error ? err.message : err,
             });
         }

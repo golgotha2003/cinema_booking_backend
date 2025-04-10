@@ -151,17 +151,34 @@ class MovieController {
   deleteMovie = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
-      const deletedMovie = await movieService.deleteMovie(id);
+      await movieService.deleteMovie(id);
 
-      return res.status(200).json({
+      return res.status(204).json({
         success: true,
         message: "Delete movie successfully",
-        data: deletedMovie,
-      });
+      })
     } catch (err) {
       return res.status(400).json({
         success: false,
         message: "Delete movie failed",
+        error: err instanceof Error ? err.message : err,
+      });
+    }
+  };
+
+  disableMovie = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      await movieService.disableMovie(id);
+
+      return res.status(204).json({
+        success: true,
+        message: "Disable movie successfully",
+      });
+    } catch (err) {
+      return res.status(400).json({
+        success: false,
+        message: "Disable movie failed",
         error: err instanceof Error ? err.message : err,
       });
     }

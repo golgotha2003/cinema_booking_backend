@@ -1,5 +1,6 @@
 import { MovieRequestDto } from "../dto/req/movie.req.dto";
 import Movie from "../models/movie";
+import { MovieStatus } from "../utils/movie/status.enum";
 
 /**
  * Service class for movie model
@@ -73,8 +74,6 @@ class MovieService {
 
         if (!existingMovie) throw new Error("Movie not found");
 
-        
-
         existingMovie.title = movie.title;
         existingMovie.description = movie.description;
         existingMovie.duration = movie.duration;
@@ -89,6 +88,20 @@ class MovieService {
         await existingMovie.save();
 
         return existingMovie;
+    }
+
+    /**
+     * Disable a movie
+     * @param id movie id
+     */
+    disableMovie = async (id: string) => {
+        const existingMovie = await Movie.findById(id);
+
+        if (!existingMovie) throw new Error("Movie not found");
+
+        existingMovie.status = MovieStatus.DELETED;
+
+        await existingMovie.save();
     }
 
     /**

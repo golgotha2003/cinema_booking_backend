@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IShowtime } from "../interfaces/iShowtime";
+import { ShowtimeStatus } from "../utils/showtime/status.enum";
 
 const ShowtimeSchema = new Schema<IShowtime>(
   {
@@ -21,6 +22,11 @@ const ShowtimeSchema = new Schema<IShowtime>(
       type: Date,
       required: true,
     },
+    status: {
+      type: String,
+      enum: Object.values(ShowtimeStatus),
+      default: ShowtimeStatus.COMING_SOON
+    }
   },
   {
     timestamps: true,

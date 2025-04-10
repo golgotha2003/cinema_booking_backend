@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { IPromotion } from "../interfaces/iPromotion";
 import { PromotionType } from "../utils/promotion/type.enum";
+import { PromotionStatus } from "../utils/promotion/status.enum";
 
 const PromotionSchema = new Schema<IPromotion>({
     code: {
@@ -28,6 +29,11 @@ const PromotionSchema = new Schema<IPromotion>({
         type: String,
         required: true,
     },
+    status: {
+        type: String,
+        enum: Object.values(PromotionStatus),
+        default: PromotionStatus.COMING_SOON
+    }
 }, {
     timestamps: true
 });

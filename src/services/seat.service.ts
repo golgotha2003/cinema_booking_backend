@@ -1,5 +1,6 @@
 import { ISeat } from "../interfaces/iSeat";
 import Seat from "../models/seat";
+import { SeatStatus } from "../utils/seat/status.enum";
 
 /**
  * Service class for managing seats.
@@ -51,6 +52,18 @@ class SeatService {
 
         return existingSeat;
     }
+
+    /**
+     * Disable all seats by theater id.
+     * @param theaterId The id of the theater.
+     */
+    disableSeatsByTheaterId = async (theaterId: string) => {
+        await Seat.updateMany(
+            { theater: theaterId, status: { $ne: SeatStatus.DISABLED } },
+            { status: SeatStatus.DISABLED }
+        );
+    }
+    
 
     /**
      * Delete a seat.
