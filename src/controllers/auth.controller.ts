@@ -98,6 +98,8 @@ class AuthController {
     try {
       const { email, otp } = req.body;
 
+      console.log(req.body);
+
       console.log(req.session.otp);
 
       const data = await authService.verifySignUp(email, otp, req.session);
