@@ -27,6 +27,8 @@ class AuthController {
         expiredAt: Date.now() + 5 * 60 * 1000, // 5 minutes
       };
 
+      req.session.save();
+
       await sendEmail(data.user?.email as string, otp);
 
       return res.status(201).json({
@@ -135,6 +137,8 @@ class AuthController {
         expiredAt: Date.now() + 5 * 60 * 1000, // 5 minutes
       };
 
+      req.session.save();
+
       await sendEmail(data.user?.email as string, otp);
 
       return res.status(200).json({
@@ -204,6 +208,8 @@ class AuthController {
         code: otp,
         expiredAt: Date.now() + 5 * 60 * 1000, // 5 minutes
       };
+
+      req.session.save();
 
       await sendEmail(email, otp);
 
