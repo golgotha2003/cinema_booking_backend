@@ -55,7 +55,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // true nếu dùng HTTPS
+      secure: true, // true nếu dùng HTTPS
       httpOnly: true,
       maxAge: 1000 * 60 * 60, // 1 giờ
       sameSite: "none", // dùng "none" nếu frontend và backend chạy khác domain và có HTTPS
