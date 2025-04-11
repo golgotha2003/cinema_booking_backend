@@ -186,6 +186,38 @@ class AuthController {
       });
     }
   };
+
+  resendOtp = async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+
+      const otp = await generateOtp();
+
+      if(req.session.otp) {
+        delete req.session.otp;
+      }
+
+      req.session.otp = {
+        email,
+        code: otp,
+        expiredAt: Date.now() + 5 * 60 * 1000, // 5 minutes
+      };
+
+      await sendEmail(email, otp);
+
+      return res.status(200).json({
+        success: true,
+        message:
+          "Resend otp successfully. Please check your email to reset your password.",
+      });
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        message: "Resend otp failed",
+        error: error instanceof Error ? error.message : error,
+      });
+    }
+  };
 }
 
 export default new AuthController();

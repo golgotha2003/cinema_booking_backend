@@ -33,4 +33,8 @@ router.put('/reset-password', async (req: Request, res: Response, next: NextFunc
   await authController.resetPassword(req, res).catch(next);
 });
 
+router.post('/resend-otp', async (req: Request, res: Response, next: NextFunction) => {
+  await authController.resendOtp(req, res).catch(next);
+});
+
 export default router;
