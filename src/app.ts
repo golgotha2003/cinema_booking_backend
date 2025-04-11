@@ -5,7 +5,7 @@ import session from "express-session";
 import { createClient } from "redis";
 import { connectDB } from "./db/dbConnect";
 import initRoutes from "./routes/init.route";
-const RedisStore = require("connect-redis").default(session);
+import { RedisStore } from "connect-redis";
 
 dotenv.config();
 
@@ -17,11 +17,9 @@ const redisClient = createClient({
   password: process.env.REDIS_PASSWORD,
   socket: {
     host: process.env.REDIS_HOST,
-    port: Number(process.env.REDIS_PORT)
-  }
+    port: Number(process.env.REDIS_PORT),
+  },
 });
-
-
 
 redisClient.on("error", (err) => console.error("❌ Redis Client Error:", err));
 
@@ -39,7 +37,7 @@ redisClient.on("error", (err) => console.error("❌ Redis Client Error:", err));
 app.use(
   cors({
     origin: "http://localhost:5173", // Frontend (Vite)
-    credentials: true
+    credentials: true,
   })
 );
 
@@ -60,8 +58,8 @@ app.use(
       secure: false, // true nếu dùng HTTPS
       httpOnly: true,
       maxAge: 1000 * 60 * 60, // 1 giờ
-      sameSite: "none" // dùng "none" nếu frontend và backend chạy khác domain và có HTTPS
-    }
+      sameSite: "none", // dùng "none" nếu frontend và backend chạy khác domain và có HTTPS
+    },
   })
 );
 
